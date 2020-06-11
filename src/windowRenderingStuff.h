@@ -18,11 +18,21 @@ void procesoDeCierre(SDL_Window *vent) {
 // HIT TEST ///////////////////////////////
 
 #define TAMANO_BORDE 5
+#define DRAGGABLE_AREA 20
+
 
 static SDL_HitTestResult SDLCALL hitTest( SDL_Window *vent, const SDL_Point *punto, void *data ) {
 
     int w, h;
     SDL_GetWindowSize(vent, &w, &h);
+
+    
+
+    if (punto -> y < DRAGGABLE_AREA && punto -> y > TAMANO_BORDE && punto -> x < w - 25) {
+        return SDL_HITTEST_DRAGGABLE;
+    }
+
+
 
     #define RESIZE(side) { \
         return SDL_HITTEST_RESIZE_##side; \

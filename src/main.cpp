@@ -53,6 +53,10 @@ int main( int argc, char *argv[] ) {
     SDL_Color red = {255, 0, 0, 255};
     Button close_window_button = Button(close_area, red);
 
+    SDL_Color grey = {70, 70, 70, 255};
+    SDL_Rect draggable_area = {0, 0, 0, 20};
+    Button draggable_area_rect = Button(draggable_area, grey);
+
     while (running) {
 
         // RENDERER SETUP
@@ -65,13 +69,15 @@ int main( int argc, char *argv[] ) {
             SDL_SetWindowSize(ventana, ancho_ventana, 100);
         }
 
-        close_window_button.area.x = ancho_ventana - close_window_button.area.w;
-
         SDL_SetRenderDrawColor(renderizador, 51, 51, 51, 255);
         SDL_RenderClear(renderizador);
         // RENDERER SETUP
 
+        close_window_button.area.x = ancho_ventana - close_window_button.area.w;
         close_window_button.renderButton(renderizador);
+
+        draggable_area_rect.area.w = ancho_ventana - 20;
+        draggable_area_rect.renderButton(renderizador);
 
         SDL_RenderPresent(renderizador);
 
