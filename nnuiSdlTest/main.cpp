@@ -1,10 +1,11 @@
 #include <exception>
 #include <string>
 #include <iostream>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 // HEADERS
 #include "windowRenderingStuff.h"
 #include "mouseStuff.h"
+#include "button.h"
 
 #define fps 30
 
@@ -46,31 +47,33 @@ int main( int argc, char *argv[] ) {
     bool running = true;
     int ancho_ventana, alto_ventana;
 
-    SDL_Rect close_area = {0,0,20,20};
-    int mouse_x, mouse_y;
     Mouse mouse = Mouse();
+
+    SDL_Rect close_area = {0,0,20,20};
+    SDL_Color red = {255, 0, 0, 255};
+    Button close_window_button = Button(close_area, red);
 
     while (running) {
 
+        // RENDERER SETUP
         SDL_GetWindowSize(ventana, &ancho_ventana, &alto_ventana);
-        if ( ancho_ventana < 100 && alto_ventana < 100 ) {
-            SDL_SetWindowSize(ventana, 100, 100);
+        if ( ancho_ventana < 100) {
+            SDL_SetWindowSize(ventana, 100, alto_ventana);
         }
 
-        close_area.x = ancho_ventana - close_area.w;
+        if (alto_ventana < 100) {
+            SDL_SetWindowSize(ventana, ancho_ventana, 100);
+        }
+
+        close_window_button.area.x = ancho_ventana - close_window_button.area.w;
 
         SDL_SetRenderDrawColor(renderizador, 51, 51, 51, 255);
         SDL_RenderClear(renderizador);
+        // RENDERER SETUP
 
-        SDL_SetRenderDrawColor(renderizador, 159, 1, 1, 255);
-        SDL_RenderFillRect(renderizador, &close_area);
+        close_window_button.renderButton(renderizador);
 
         SDL_RenderPresent(renderizador);
-
-
-        starting_tick = SDL_GetTicks();
-
-
 
         while ( SDL_PollEvent( &evento ) ) {
             switch (evento.type) {
@@ -84,9 +87,8 @@ int main( int argc, char *argv[] ) {
                     break;
                 case SDL_MOUSEBUTTONDOWN:
                     if (evento.button.button == SDL_BUTTON_LEFT) {
-                        SDL_GetMouseState(&mouse_x, &mouse_y);
-                        cout << mouse_x << ", " << mouse_y << '\n';
-                        if (mouse.inRect(mouse_x, mouse_y, &close_area)) {
+                        SDL_GetMouseState(&mouse.pos.x, &mouse.pos.y);
+                        if (close_window_button.mouseInArea(mouse.pos.x, mouse.pos.y)) {
                             running = false;
                         }
                     }
@@ -94,8 +96,8 @@ int main( int argc, char *argv[] ) {
             }
         }
 
-        limitarFrameRate(fps);
-
+        starting_tick = SDL_GetTicks();
+        limitFrameRate(fps);
     }
 
     procesoDeCierre(ventana);
