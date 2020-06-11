@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1591802129 source:/home/carlos/PROYECTOS/nnui-raw/NNUI_SDL_TEST/nnuiSdlTest/main.cpp
+1591842817 source:/home/carlos/PROYECTOS/nnui-raw/NNUI_SDL_TEST/nnuiSdlTest/main.cpp
 	<exception>
 	<string>
 	<iostream>
 	<SDL.h>
-	"hitTest.h"
 	"windowRenderingStuff.h"
+	"mouseStuff.h"
 
 1591723267 /usr/local/include/SDL2/SDL.h
 	"SDL_main.h"
@@ -368,9 +368,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1591801976 /home/carlos/PROYECTOS/nnui-raw/NNUI_SDL_TEST/nnuiSdlTest/hitTest.h
+1591802627 /home/carlos/PROYECTOS/nnui-raw/NNUI_SDL_TEST/nnuiSdlTest/hitTest.h
 	<SDL.h>
 
-1591801687 /home/carlos/PROYECTOS/nnui-raw/NNUI_SDL_TEST/nnuiSdlTest/windowRenderingStuff.h
+1591843622 /home/carlos/PROYECTOS/nnui-raw/NNUI_SDL_TEST/nnuiSdlTest/windowRenderingStuff.h
 	<SDL.h>
+
+1591840865 /home/carlos/PROYECTOS/nnui-raw/NNUI_SDL_TEST/nnuiSdlTest/mouseStuff.h
+	"SDL.h"
 

@@ -3,8 +3,8 @@
 #include <iostream>
 #include <SDL.h>
 // HEADERS
-#include "hitTest.h"
 #include "windowRenderingStuff.h"
+#include "mouseStuff.h"
 
 #define fps 30
 
@@ -27,7 +27,6 @@ int main( int argc, char *argv[] ) {
                                 SDL_WINDOW_RESIZABLE | SDL_WINDOW_BORDERLESS );
     if ( ventana == NULL ) cout << "Hubo un error con la ventana.\n" << SDL_GetError() << '\n';
 
-
     renderizador = SDL_CreateRenderer(ventana, -1, 0);
 
 
@@ -47,6 +46,10 @@ int main( int argc, char *argv[] ) {
     bool running = true;
     int ancho_ventana, alto_ventana;
 
+    SDL_Rect close_area = {0,0,20,20};
+    int mouse_x, mouse_y;
+    Mouse mouse = Mouse();
+
     while (running) {
 
         SDL_GetWindowSize(ventana, &ancho_ventana, &alto_ventana);
@@ -54,9 +57,14 @@ int main( int argc, char *argv[] ) {
             SDL_SetWindowSize(ventana, 100, 100);
         }
 
+        close_area.x = ancho_ventana - close_area.w;
 
         SDL_SetRenderDrawColor(renderizador, 51, 51, 51, 255);
         SDL_RenderClear(renderizador);
+
+        SDL_SetRenderDrawColor(renderizador, 159, 1, 1, 255);
+        SDL_RenderFillRect(renderizador, &close_area);
+
         SDL_RenderPresent(renderizador);
 
 
@@ -72,6 +80,15 @@ int main( int argc, char *argv[] ) {
                 case SDL_KEYDOWN:
                     if (evento.key.keysym.sym == SDLK_ESCAPE) {
                         running = false;
+                    }
+                    break;
+                case SDL_MOUSEBUTTONDOWN:
+                    if (evento.button.button == SDL_BUTTON_LEFT) {
+                        SDL_GetMouseState(&mouse_x, &mouse_y);
+                        cout << mouse_x << ", " << mouse_y << '\n';
+                        if (mouse.inRect(mouse_x, mouse_y, &close_area)) {
+                            running = false;
+                        }
                     }
                     break;
             }
