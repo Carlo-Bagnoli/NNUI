@@ -49,6 +49,13 @@ int main( int argc, char *argv[] ) {
 
     Mouse mouse = Mouse();
 
+
+    SDL_Surface *close_button;
+    close_button = SDL_LoadBMP("buttons-title-bar.bmp");
+    SDL_Texture *texture_test = SDL_CreateTextureFromSurface(renderizador, close_button);
+    SDL_Rect srcRect = { 40,   0, 20, 20};
+    SDL_Rect dstrect = {  0,   0, 20, 20};
+
     SDL_Rect close_area = {0,0,20,20};
     SDL_Color red = {255, 0, 0, 255};
     Button close_window_button = Button(close_area, red);
@@ -78,6 +85,10 @@ int main( int argc, char *argv[] ) {
 
         draggable_area_rect.area.w = ancho_ventana - 20;
         draggable_area_rect.renderButton(renderizador);
+
+
+        SDL_RenderCopy(renderizador, texture_test, &srcRect, &close_window_button.area);
+
 
         SDL_RenderPresent(renderizador);
 
