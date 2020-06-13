@@ -6,11 +6,12 @@ class Mouse {
 public:
     Mouse(){}
 
-    SDL_Point pos;
+    SDL_Point pos = {0, 0};
 
     void updateMousePosition() {
-        SDL_GetMouseState(&pos.x, &pos.x);
+        SDL_GetMouseState(&pos.x, &pos.y);
     }
+
 
     // bool inRect(int x, int y, struct SDL_Rect *rect) {
     //     if (x >= rect->x && x < (rect->x + rect->w)) {
