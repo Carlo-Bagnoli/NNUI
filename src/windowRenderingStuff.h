@@ -20,6 +20,11 @@ void procesoDeCierre(SDL_Window *vent) {
 #define TAMANO_BORDE 5
 #define DRAGGABLE_AREA 20
 
+// TESTING AREA v ////////////////////////////////////////////////////////////////////////
+
+
+
+// TESTING AREA ^ ///////////////////////////////////////////////////////////////////////
 
 static SDL_HitTestResult SDLCALL hitTest( SDL_Window *vent, const SDL_Point *punto, void *data ) {
 
@@ -28,7 +33,7 @@ static SDL_HitTestResult SDLCALL hitTest( SDL_Window *vent, const SDL_Point *pun
 
     
 
-    if (punto -> y < DRAGGABLE_AREA && punto -> y > TAMANO_BORDE && punto -> x < w - 25) {
+    if (punto -> y < DRAGGABLE_AREA && punto -> y > TAMANO_BORDE && punto -> x < w - 60) {
         return SDL_HITTEST_DRAGGABLE;
     }
 
@@ -37,24 +42,25 @@ static SDL_HitTestResult SDLCALL hitTest( SDL_Window *vent, const SDL_Point *pun
     #define RESIZE(side) { \
         return SDL_HITTEST_RESIZE_##side; \
     }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    if      (punto -> x <     TAMANO_BORDE && punto -> y <     TAMANO_BORDE)                                   { RESIZE(TOPLEFT);     }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    else if (punto -> x >     TAMANO_BORDE && punto -> x < w - TAMANO_BORDE && punto -> y <     TAMANO_BORDE ) { RESIZE(TOP);         }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    else if (punto -> x > w - TAMANO_BORDE && punto -> y <     TAMANO_BORDE)                                   { RESIZE(TOPRIGHT);    }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    else if (punto -> x > w - TAMANO_BORDE && punto -> y >     TAMANO_BORDE && punto -> y < h - TAMANO_BORDE ) { RESIZE(RIGHT);       }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    else if (punto -> x > w - TAMANO_BORDE && punto -> y > h - TAMANO_BORDE)                                   { RESIZE(BOTTOMRIGHT); }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    else if (punto -> x < w - TAMANO_BORDE && punto -> x >     TAMANO_BORDE && punto -> y > h - TAMANO_BORDE) { RESIZE(BOTTOM);      }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    else if (punto -> x <     TAMANO_BORDE && punto -> y > h - TAMANO_BORDE)                                   { RESIZE(BOTTOMLEFT);  }
-//--------------------------------------------------------------------------------------------------------------------------------------
-    else if (punto -> x <     TAMANO_BORDE && punto -> y >     TAMANO_BORDE && punto -> y < h - TAMANO_BORDE ) { RESIZE(LEFT);        }
-//--------------------------------------------------------------------------------------------------------------------------------------
-
+    
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        if      (punto -> x <     TAMANO_BORDE && punto -> y <     TAMANO_BORDE)                                   { RESIZE(TOPLEFT);     }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        else if (punto -> x >     TAMANO_BORDE && punto -> x < w - TAMANO_BORDE && punto -> y <     TAMANO_BORDE ) { RESIZE(TOP);         }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        else if (punto -> x > w - TAMANO_BORDE && punto -> y <     TAMANO_BORDE)                                   { RESIZE(TOPRIGHT);    }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        else if (punto -> x > w - TAMANO_BORDE && punto -> y >     TAMANO_BORDE && punto -> y < h - TAMANO_BORDE ) { RESIZE(RIGHT);       }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        else if (punto -> x > w - TAMANO_BORDE && punto -> y > h - TAMANO_BORDE)                                   { RESIZE(BOTTOMRIGHT); }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        else if (punto -> x < w - TAMANO_BORDE && punto -> x >     TAMANO_BORDE && punto -> y > h - TAMANO_BORDE) { RESIZE(BOTTOM);      }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        else if (punto -> x <     TAMANO_BORDE && punto -> y > h - TAMANO_BORDE)                                   { RESIZE(BOTTOMLEFT);  }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+        else if (punto -> x <     TAMANO_BORDE && punto -> y >     TAMANO_BORDE && punto -> y < h - TAMANO_BORDE ) { RESIZE(LEFT);        }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    
     return SDL_HITTEST_NORMAL;
 
 }
