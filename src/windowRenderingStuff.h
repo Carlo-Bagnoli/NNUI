@@ -22,8 +22,20 @@ void procesoDeCierre(SDL_Window *vent) {
 
 // TESTING AREA v ////////////////////////////////////////////////////////////////////////
 
+// void titleBar(SDL_Renderer *render, int window_w, int window_h, SDL_Surface *sprite_sheet)
+// {
+//     SDL_Rect maximize_area = {0,0,20,20};
+//     Button maximize_window_button = Button(maximize_area);
+//     maximize_window_button.sprite(render, sprite_sheet, 20, 0, 20, 20);
 
+//     SDL_Rect minimize_area = {0,0,20,20};
+//     Button minimize_window_button = Button(minimize_area);
+//     minimize_window_button.sprite(render, sprite_sheet,  0, 0, 20, 20);
 
+//     SDL_Rect close_area = {0,0,20,20};
+//     Button close_window_button = Button(close_area);
+//     close_window_button.sprite(render, sprite_sheet, 40, 0, 20, 20);
+// }
 // TESTING AREA ^ ///////////////////////////////////////////////////////////////////////
 
 static SDL_HitTestResult SDLCALL hitTest( SDL_Window *vent, const SDL_Point *punto, void *data ) {

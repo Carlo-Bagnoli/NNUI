@@ -13,6 +13,28 @@
 
 using namespace std;
 
+
+void show_flags(int flags) {
+
+    printf("\nFLAGS ENABLED: ( %d )\n", flags);
+    printf("=======================\n");
+    if(flags & SDL_WINDOW_FULLSCREEN)         printf("SDL_WINDOW_FULLSCREEN\n");
+    if(flags & SDL_WINDOW_OPENGL)             printf("SDL_WINDOW_OPENGL\n");
+    if(flags & SDL_WINDOW_SHOWN)              printf("SDL_WINDOW_SHOWN\n");
+    if(flags & SDL_WINDOW_HIDDEN)             printf("SDL_WINDOW_HIDDEN\n");
+    if(flags & SDL_WINDOW_BORDERLESS)         printf("SDL_WINDOW_BORDERLESS\n");
+    if(flags & SDL_WINDOW_RESIZABLE)          printf("SDL_WINDOW_RESIZABLE\n");
+    if(flags & SDL_WINDOW_MINIMIZED)          printf("SDL_WINDOW_MINIMIZED\n");
+    if(flags & SDL_WINDOW_MAXIMIZED)          printf("SDL_WINDOW_MAXIMIZED\n");
+    if(flags & SDL_WINDOW_INPUT_GRABBED)      printf("SDL_WINDOW_INPUT_GRABBED\n");
+    if(flags & SDL_WINDOW_INPUT_FOCUS)        printf("SDL_WINDOW_INPUT_FOCUS\n");
+    if(flags & SDL_WINDOW_MOUSE_FOCUS)        printf("SDL_WINDOW_MOUSE_FOCUS\n");
+    if(flags & SDL_WINDOW_FULLSCREEN_DESKTOP) printf("SDL_WINDOW_FULLSCREEN_DESKTOP\n");
+    if(flags & SDL_WINDOW_FOREIGN)            printf("SDL_WINDOW_FOREIGN\n");
+}
+
+
+
 int main( int argc, char *argv[] ) {
 
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -67,6 +89,11 @@ int main( int argc, char *argv[] ) {
     Button close_window_button = Button(close_area);
     close_window_button.sprite(renderer, buttons_sprite_sheet, 40, 0, 20, 20);
 
+    int flags;
+    int window_maximized;
+    int window_minimized;
+    
+
     // HandleEvents event_handler = HandleEvents(&event);
 
 //TESTING AREA ^ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -96,6 +123,14 @@ int main( int argc, char *argv[] ) {
 
 //TESTING AREA v ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        flags = SDL_GetWindowFlags(window);
+        window_maximized = (flags & SDL_WINDOW_MAXIMIZED) ? true : false;
+        window_minimized = (flags & SDL_WINDOW_MINIMIZED) ? true : false;
+
+        // if (window_maximized) {
+        //     SDL_Log("fucking finally m8!");
+        // }
+
         draggable_area_rect.area.w = window_width;
         draggable_area_rect.renderArea(renderer);
         
@@ -108,6 +143,9 @@ int main( int argc, char *argv[] ) {
         minimize_window_button.dstRect.x = window_width - minimize_window_button.dstRect.w - 40;
         minimize_window_button.renderSprite(renderer);
 
+        // if (SDL_GetWindowFlags(window) == SDL_WINDOW_MAXIMIZED) {
+        //     SDL_Log("Window is borderless!");
+        // }
 
 
 //TESTING AREA ^ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -142,6 +180,23 @@ int main( int argc, char *argv[] ) {
                         // cout << mouse.pos.x << ", " << mouse.pos.y << '\n';
 
                         if (close_window_button.mouseInDstRect(mouse.pos.x, mouse.pos.y)) running = false;
+
+                        if (maximize_window_button.mouseInDstRect(mouse.pos.x, mouse.pos.y)) {
+                            if (!window_maximized){ 
+                                SDL_MaximizeWindow(window);
+                            } else {
+                                SDL_RestoreWindow(window);
+                            }
+                        }
+
+                        if (minimize_window_button.mouseInDstRect(mouse.pos.x, mouse.pos.y)) {
+                            if (!window_minimized) {
+                                SDL_MinimizeWindow(window);
+                            } else {
+                                SDL_RestoreWindow(window);
+                            }
+                        }
+
 
 
                     }
