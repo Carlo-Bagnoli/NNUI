@@ -66,7 +66,7 @@ static SDL_HitTestResult SDLCALL hitTest( SDL_Window *vent, const SDL_Point *pun
     //--------------------------------------------------------------------------------------------------------------------------------------
         else if (punto -> x > w - TAMANO_BORDE && punto -> y > h - TAMANO_BORDE)                                   { RESIZE(BOTTOMRIGHT); }
     //--------------------------------------------------------------------------------------------------------------------------------------
-        else if (punto -> x < w - TAMANO_BORDE && punto -> x >     TAMANO_BORDE && punto -> y > h - TAMANO_BORDE) { RESIZE(BOTTOM);      }
+        else if (punto -> x < w - TAMANO_BORDE && punto -> x >     TAMANO_BORDE && punto -> y > h - TAMANO_BORDE)  { RESIZE(BOTTOM);      }
     //--------------------------------------------------------------------------------------------------------------------------------------
         else if (punto -> x <     TAMANO_BORDE && punto -> y > h - TAMANO_BORDE)                                   { RESIZE(BOTTOMLEFT);  }
     //--------------------------------------------------------------------------------------------------------------------------------------
